@@ -33,6 +33,15 @@ gem 'slim-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'guard'
+  gem 'guard-bundler', require: false
+  gem 'guard-rspec', require: false
+  # Checks ruby code grammar
+  gem 'rubocop', require: false
+  # With rspec
+  gem 'rubocop-rspec'
+  # With guard
+  gem 'guard-rubocop'
 end
 
 group :development do
