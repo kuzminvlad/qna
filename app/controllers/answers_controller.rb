@@ -23,8 +23,9 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-      @answer.destroy
-      redirect_to root_path
+    question_id = @answer.question_id
+    @answer.destroy
+    redirect_to "/questions/#{question_id}"
   end
 
   private
@@ -38,7 +39,7 @@ class AnswersController < ApplicationController
   end
 
   def load_owner
-    return redirect_to @question if @answer.user != current_user
+    return redirect_to "/questions/#{@answer.question_id}" if @answer.user != current_user
   end
 
   def answers_params
