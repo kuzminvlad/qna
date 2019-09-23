@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
-  let(:question) { create(:question) }
+  let(:user) { create(:user) }
+  let(:question) { create(:question, user: user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2)}
+
     before { get :index }
 
     it 'populates an array of all questions' do
@@ -29,6 +31,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
+    sign_in_user
     before { get :new }
 
     it 'assigns a new Question to @question' do
@@ -41,6 +44,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
+    sign_in_user
     before { get :edit, params: {id: question} }
 
     it 'assigns the requested question to @question' do
@@ -53,6 +57,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    sign_in_user
     context 'with valid attributes' do
       it 'saves the new question in the database' do
         expect {
@@ -83,6 +88,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATH #update' do
+    sign_in_user
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
         patch :update, params: { id: question,
@@ -123,17 +129,34 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  context 'DELETE #destroy' do
-    before { question }
+  describe 'DELETE #destroy' do
+    context 'Registred user' do
+      before { sign_in(user) }
 
-    it 'deletes question' do
-      expect { delete :destroy,
-        params: { id: question } }.to change(Question, :count).by(-1)
+      it 'deletes question' do
+        question
+        expect { delete :destroy,
+          params: { id: question } }.to change(Question, :count).by(-1)
+      end
+
+      it 'redirect to index view' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to questions_path
+      end
     end
 
-    it 'redirect to index view' do
-      delete :destroy, params: { id: question }
-      expect(response).to redirect_to questions_path
+    context 'Unregistred user' do
+      before { question }
+
+      it 'tries to delete question' do
+        expect { delete :destroy,
+          params: { id: question } }.to change(Question, :count).by(0)
+      end
+
+      it 'redirect to index' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to new_user_session_path
+      end
     end
   end
 end
