@@ -5,10 +5,12 @@ p = @question.body
   = link_to 'Delete question', question_path(@question), method: :delete
   p = link_to 'Edit', edit_question_path(@question)
 
-p = link_to 'Add answer', new_question_answer_path(@question.id)
-h2 All answers for this questions
 
+h2 All answers for this questions
 .answers
-  - @question.answers.each do |answer|
-    p = answer.body
-    = link_to 'show this answer', answer_path(answer)
+  = render 'answers'
+
+= form_for [@question, @answer], remote: true do |f|
+  = f.label :body, 'Your answer'
+  p = f.text_area :body
+  p = f.submit 'Create'
