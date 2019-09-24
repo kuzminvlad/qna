@@ -26,7 +26,7 @@ describe 'Profile API' do
       expect(response).to be_successful
     end
 
-    %w(id email).each do |attr|
+    %w(id email created_at updated_at).each do |attr|
       it "contains #{attr}" do
         expect(response.body).to be_json_eql(me.send(attr.to_sym).to_json).at_path(attr)
       end
