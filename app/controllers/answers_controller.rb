@@ -15,11 +15,12 @@ class AnswersController < ApplicationController
     answer.user_id = current_user.id
     answer.question_id = @question.id
 
-    if answer.save
-      redirect_to answer.question
-    else
-      render :new
-    end
+    # if answer.save
+    #   redirect_to answer.question
+    # else
+    #   render :new
+    # end
+    answer.save
   end
 
   def destroy
