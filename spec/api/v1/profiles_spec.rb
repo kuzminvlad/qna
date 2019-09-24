@@ -14,6 +14,9 @@ describe 'Profile API' do
       end
     end
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add gem json_spec and add more tests to profile_spec
   end
 
   context 'autorized' do
@@ -26,6 +29,7 @@ describe 'Profile API' do
     it 'returns 200 status' do
       expect(response).to be_successful
     end
+<<<<<<< HEAD
 
     %w(id email).each do |attr|
       it "contains #{attr}" do
@@ -40,17 +44,24 @@ describe 'Profile API' do
     end
 
 =======
+=======
+>>>>>>> Add gem json_spec and add more tests to profile_spec
 
-    context 'autorized' do
-      let(:me) { create(:user) }
-      let(:access_token) { create(:access_token) }
-
-      it 'returns 200 status' do
-        get '/api/v1/profiles/me',
-          params: { format: :json, access_token: access_token.token }
-        # expect(response).to be_successful
+    %w(id email).each do |attr|
+      it "contains #{attr}" do
+        expect(response.body).to be_json_eql(me.send(attr.to_sym).to_json).at_path(attr)
       end
     end
+
+    %w(password encrypted_password).each do |attr|
+      it "does not contain #{attr}" do
+        expect(response.body).to_not have_json_path(attr)
+      end
+    end
+<<<<<<< HEAD
 >>>>>>> Add test profile
+=======
+
+>>>>>>> Add gem json_spec and add more tests to profile_spec
   end
 end

@@ -46,6 +46,9 @@ group :development, :test do
   gem 'guard-rubocop'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -64,12 +67,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers'
   gem 'launchy'
-end
-
-group :test, :development do
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
-  gem 'factory_bot_rails'
+  gem 'json_spec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
