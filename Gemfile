@@ -50,6 +50,7 @@ group :development, :test do
   # With guard
   gem 'guard-rubocop'
   gem 'selenium-webdriver'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'rails-controller-testing'

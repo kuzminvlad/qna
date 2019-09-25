@@ -11,16 +11,9 @@ class AnswersController < ApplicationController
   end
 
   def create
-    answer = @question.answers.new(answers_params)
-    answer.user_id = current_user.id
-    answer.question_id = @question.id
-
-    # if answer.save
-    #   redirect_to answer.question
-    # else
-    #   render :new
-    # end
-    answer.save
+    @answer = @question.answers.new(answers_params)
+    @answer.user_id = current_user.id
+    @answer.save
   end
 
   def destroy
