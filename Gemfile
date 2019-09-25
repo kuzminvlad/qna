@@ -15,6 +15,8 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem 'doorkeeper', '4.2.6'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -46,6 +48,9 @@ group :development, :test do
   gem 'guard-rubocop'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -64,12 +69,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers'
   gem 'launchy'
-end
-
-group :test, :development do
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
-  gem 'factory_bot_rails'
+  gem 'json_spec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
