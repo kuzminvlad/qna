@@ -14,6 +14,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 gem 'doorkeeper', '4.2.6'
 
