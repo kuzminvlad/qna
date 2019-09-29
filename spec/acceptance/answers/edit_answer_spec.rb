@@ -6,12 +6,12 @@ feature 'Answer editing', %q{
   I'd like to be able to edit my answer
 } do
   given(:user) { create(:user) }
+  given(:user_another) { create(:user) }
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
   scenario 'Unauthentificated user try to edit question' do
     visit question_path(question)
-
     expect(page).to_not have_link 'Edit'
   end
 
@@ -38,7 +38,11 @@ feature 'Answer editing', %q{
         expect(page).to_not have_selector 'textarea'
       end
     end
+  end
 
-    scenario "try to edit other user's question"
+  scenario "Authentificated user try to edit other user's question", js: true do
+    sign_in(user_another)
+    visit question_path(question)
+    expect(page).to_not have_link 'Edit'
   end
 end

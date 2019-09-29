@@ -2,8 +2,8 @@
   - if answer.persisted?
     div id="answer-#{ answer.id }"
       p = answer.body
-      - if user_signed_in?
-        p = link_to 'Delete', answer_path(answer), method: :delete
+      - if user_signed_in? && answer.user_id == current_user.id
+        p = link_to 'Delete', answer_path(answer), method: :delete, remote: true
         p = link_to 'Edit', '', class: "edit-answer-link", data: { answer_id: answer.id }
         = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
           = f.label :body, 'Answer'

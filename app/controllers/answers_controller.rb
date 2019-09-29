@@ -2,7 +2,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_question, only: [:new, :create]
   before_action :load_answer, only: [:destroy, :show, :update]
-  before_action :load_owner, only: [:destroy]
 
   def new
     @answer = @question.answers.new
@@ -26,9 +25,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    question_id = @answer.question_id
-    @answer.destroy
-    redirect_to "/questions/#{question_id}"
+    @answer.destroy if @answer.user == current_user
   end
 
   private
@@ -39,10 +36,6 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
-  end
-
-  def load_owner
-    redirect_to "/questions/#{@answer.question_id}" if @answer.user != current_user
   end
 
   def answers_params
