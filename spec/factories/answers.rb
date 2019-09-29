@@ -1,11 +1,12 @@
 FactoryBot.define do
   factory :answer do
     question
-    body { "AnswerText" }
+    body { 'AnswerText' }
     user
+    best { 'false' }
   end
 
-  factory :invalid_answer, class: "Answer" do
+  factory :invalid_answer, class: 'Answer' do
     question { nil }
     body { nil }
     user { nil }
