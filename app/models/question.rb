@@ -5,6 +5,8 @@ class Question < ApplicationRecord
 
   validates :title, :body, :user_id, presence: true
 
+  accepts_nested_attributes_for :attachments
+
   def to_s
     self[:title]
   end
