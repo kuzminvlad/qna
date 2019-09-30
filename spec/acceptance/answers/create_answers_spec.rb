@@ -1,14 +1,14 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
 feature 'User answer', %q{
   In order to exchange my knowledge
-  As an authentificated user
+  As an authorized user
   I want to be able create answers
 } do
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
-  scenario 'Authentificated user create answer', js: true do
+  scenario 'Authorized user create answer', js: true do
     sign_in(user)
     visit question_path(question)
 
@@ -19,5 +19,14 @@ feature 'User answer', %q{
     within '.answers' do
       expect(page).to have_content 'My answer'
     end
+  end
+
+  scenario 'User try to create invalid answer', js: true do
+    sign_in(user)
+    visit question_path(question)
+
+    click_on 'Create'
+
+    expect(page).to have_content "Body can't be blank"
   end
 end

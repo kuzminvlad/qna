@@ -87,7 +87,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe 'PATH #update' do
+  describe 'PATCH #update' do
     sign_in_user
     context 'valid attributes' do
       it 'assigns the requested question to @question' do

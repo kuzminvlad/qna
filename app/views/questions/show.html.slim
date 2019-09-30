@@ -1,3 +1,4 @@
+p = link_to 'Logout', destroy_user_session_path, method: :delete
 h2 = @question.title
 p = @question.body
 
@@ -12,5 +13,6 @@ h2 All answers for this questions
 
 = form_for [@question, @answer], remote: true do |f|
   = f.label :body, 'Your answer'
-  p = f.text_area :body
-  p = f.submit 'Create'
+  .answer-errors
+  p= f.text_area :body
+  p= f.submit 'Create'
