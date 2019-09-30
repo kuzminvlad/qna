@@ -13,6 +13,7 @@ feature 'User answer', %q{
     visit question_path(question)
 
     fill_in 'Your answer', with: 'My answer'
+    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'
 
     expect(current_path).to eq question_path(question)

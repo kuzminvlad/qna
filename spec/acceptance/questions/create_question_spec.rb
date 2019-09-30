@@ -14,6 +14,7 @@ feature 'Create question', %q{
     click_on 'Ask Question'
     fill_in 'Title', with: 'Test question'
     fill_in 'Body', with: 'text text'
+    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'
 
     expect(page).to have_content 'Your question sucessfully created.'
