@@ -35,6 +35,7 @@ gem 'doorkeeper', '4.2.6'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'slim-rails'
+gem 'carrierwave'
 
 
 group :development, :test do
