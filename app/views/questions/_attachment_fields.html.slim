@@ -1,5 +1,7 @@
-.nested-fields
-  .field
+.nested-fields id="#{dom_id(f.object)}"
+  - if f.object.new_record?
     p = f.label :file
-    p = f.file_field :file, :as => :boolean
-  p = link_to_remove_association 'remove file', f
+    p = f.file_field :file
+  - else
+    p = f.object.file.identifier
+    p = link_to_remove_association 'remove attach', f

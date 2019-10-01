@@ -15,4 +15,8 @@
         = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
           = f.label :body, 'Answer'
           p = f.text_area :body
+          p = f.fields_for :attachments do |a|
+            = render 'questions/attachment_fields', f: a
+          .links
+            = link_to_add_association 'Add attachment', f, :attachments, partial: 'questions/attachment_fields'
           = f.submit 'Save'

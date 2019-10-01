@@ -1,15 +1,19 @@
 div id="answer-#{ answer.id }"
-   -if answer.best
-      = 'Best answer: '
-   p = answer.body
-   ul
-     - answer.attachments.each do |a|
-        li= link_to a.file.identifier, a.file.url
-   - if user_signed_in? && answer.user_id == current_user.id
-      p = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-      p = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true
-      p = link_to 'Delete', answer_path(answer), method: :delete, remote: true
-      = form_for answer, remote: true, html: { id: "edit-answer-#{ answer.id }" } do |f|
-        = f.label :body, "Answer"
-        p = f.text_area :body
-        p = f.submit 'Save'
+  -if answer.best
+    = 'Best answer: '
+  p = answer.body
+  ul
+    - answer.attachments.each do |a|
+      li= link_to a.file.identifier, a.file.url
+  - if user_signed_in? && answer.user_id == current_user.id
+    p = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+    p = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true
+    p = link_to 'Delete', answer_path(answer), method: :delete, remote: true
+    = form_for answer, remote: true, html: { id: "edit-answer-#{ answer.id }" } do |f|
+      = f.label :body, "Answer"
+      p = f.text_area :body
+      = f.fields_for :attachments do |a|
+        = render 'questions/attachment_fields', f: a
+    	.links
+        = link_to_add_association 'Add attachment', f, :attachments, partial: 'questions/attachment_fields'
+      p = f.submit 'Save'
