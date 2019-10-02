@@ -1,0 +1,9 @@
+.vote
+  div class="raiting-Answer#{answer.id}"
+    | Raiting:
+    = answer.total_score
+  .vote_contol
+    - if signed_in? && answer.user_id != current_user.id
+      = button_to 'up', vote_up_answer_path(answer), id: "voteup-Answer#{answer.id}", disabled: voted, method: :patch, remote: true
+      = button_to 'down', vote_down_answer_path(answer), id: "votedown-Answer#{answer.id}", disabled: voted, method: :patch, remote: true
+      = button_to 'clean', delete_vote_answer_path(answer), id: "voteclean-Answer#{answer.id}", disabled: !voted, method: :delete, remote: true

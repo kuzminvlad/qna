@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users
-  resources :questions do
-    resources :answers, shallow: true do
+
+  concern :votable do
+    member  do
+      patch 'vote_up'
+      patch 'vote_down'
+      delete 'delete_vote'
+    end
+  end
+
+  resources :questions, concerns: :votable do
+    resources :answers, concerns: :votable, shallow: true do
       member do
         patch 'set_best'
       end

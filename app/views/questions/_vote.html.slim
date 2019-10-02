@@ -1,0 +1,9 @@
+.vote
+  div class="raiting-Question#{question.id}"
+    | Raiting:
+    = question.total_score
+  .vote_contol
+    - if signed_in? && question.user_id != current_user.id
+      = button_to 'up', vote_up_question_path(question), id: "voteup-Question#{question.id}", disabled: voted, method: :patch, remote: true
+      = button_to 'down', vote_down_question_path(question), id: "votedown-Question#{question.id}", disabled: voted, method: :patch, remote: true
+      = button_to 'clean', delete_vote_question_path(question), id: "voteclean-Question#{question.id}", disabled: !voted, method: :delete, remote: true
