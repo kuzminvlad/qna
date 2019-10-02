@@ -1,6 +1,7 @@
 p = link_to 'Logout', destroy_user_session_path, method: :delete
 h2 = @question.title
 p = @question.body
+p = render 'vote', question: @question, voted: @question.voted_by?(current_user)
 p Attachments:
 ul
   - @question.attachments.each do |a|
@@ -9,8 +10,6 @@ ul
 - if user_signed_in? && @question.user_id == current_user.id
   = link_to 'Delete question', question_path(@question), method: :delete
   p = link_to 'Edit', edit_question_path(@question)
-
-
 h2 All answers for this questions
 .answers
   = render 'answers'
