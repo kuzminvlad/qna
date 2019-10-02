@@ -2,15 +2,12 @@ ready = ->
 
   App.cable.subscriptions.create('QuestionsChannel', {
     connected: ->
-      @perform 'follow', text: 'hello'
+      @perform 'follow', text: 'question'
     ,
-
     received: (data) ->
       question = JSON.parse(data.locals['question'])
       $('tbody').append("<tr><td><a href=/questions/#{question.id}>#{question.title}</a></td> <td>#{question.body}</td><td></td></tr>");
   })
-
-
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

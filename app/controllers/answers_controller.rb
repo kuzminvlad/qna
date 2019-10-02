@@ -3,6 +3,8 @@ class AnswersController < ApplicationController
   before_action :load_question, only: [:new, :create]
   before_action :load_answer, only: [:destroy, :show, :update, :set_best]
 
+  after_action :publish_question, only: [:create]
+
   include Voted
   
   def new
@@ -33,6 +35,11 @@ class AnswersController < ApplicationController
   def set_best
     @question = @answer.question
     @answer.set_best! if @question.user == current_user
+  end
+
+  def publish_question
+    return if @answer.errors.any?
+    ActionCable.server.broadcast('answers', locals: { answer: @answer.to_json })
   end
 
   private
