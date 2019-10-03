@@ -10,8 +10,17 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :commentable do
+    member do
+      post 'create_comment'
+      delete 'delete_comment'
+    end
+  end
+
   resources :questions, concerns: :votable do
+    resources :comments, only: :create, defaults: { commentable: 'questions' }
     resources :answers, concerns: :votable, shallow: true do
+      resources :comments, only: :create, defaults: { commentable: 'answers' }
       member do
         patch 'set_best'
       end

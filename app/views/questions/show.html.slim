@@ -7,6 +7,13 @@ ul
   - @question.attachments.each do |a|
     li= link_to a.file.identifier, a.file.url
 
+.comments_Question
+  .Question-comments id="#{@question.id}"
+    p Comments:
+    = render @question.comments.order('created_at')
+.question-comment-form
+    = render 'comments/form', commentable: @question
+
 - if user_signed_in? && @question.user_id == current_user.id
   = link_to 'Delete question', question_path(@question), method: :delete
   p = link_to 'Edit', edit_question_path(@question)

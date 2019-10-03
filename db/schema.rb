@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_094226) do
+ActiveRecord::Schema.define(version: 2019_10_02_112611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 2019_10_01_094226) do
     t.integer "attachmentable_id"
     t.string "attachmentable_type"
     t.index ["attachmentable_id", "attachmentable_type"], name: "index_attachments_on_attachmentable_id_and_attachmentable_type"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "body"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.bigint "user_id"
+    t.integer "answer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
