@@ -1,6 +1,6 @@
 .vote
   div class="raiting-Question#{question.id}"
-    | Raiting:
+    | Raiting: 
     = question.total_score
   .vote_contol
     - if signed_in? && question.user_id != current_user.id

@@ -30,7 +30,7 @@ feature 'Answer editing', %q{
     scenario 'try to edit his answer', js: true do
       within '.answers' do
         click_on 'Edit'
-        fill_in 'Answer', with: 'edited answer'
+        fill_in 'Edit answer', with: 'edited answer'
         click_on 'Save'
 
         expect(page).to_not have_content answer.body

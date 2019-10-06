@@ -13,7 +13,7 @@ feature 'Create question', %q{
     visit questions_path
     click_on 'Ask Question'
     fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text'
+    fill_in 'Your question', with: 'text text'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'
 
@@ -42,7 +42,7 @@ feature 'Create question', %q{
       Capybara.using_session('user') do
         click_on 'Ask Question'
         fill_in 'Title', with: 'Test question'
-        fill_in 'Body', with: 'text text'
+        fill_in 'Your question', with: 'text text'
         attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
         click_on 'Create'
         expect(page).to have_content 'Your question sucessfully created.'
