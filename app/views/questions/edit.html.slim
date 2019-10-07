@@ -1,4 +1,10 @@
 = form_for @question do |f|
   == render 'question_form', f: f
+  p Attachments:
+  p 
+    = f.fields_for :attachments do |a|
+      == render 'attachment_fields', f: a
+  .links
+    = link_to_add_association 'add file', f, :attachments 
   p = f.submit
    

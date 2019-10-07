@@ -2,25 +2,24 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   before_action :load_owner, only: [:destroy]
+  before_action :build_answer, only: :show
 
   after_action :publish_question, only: [:create]
+
+  respond_to :html
 
   include Voted
 
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answer = @question.answers.build
-    @answer.attachments.build
-    @comment = Comment.new
+    respond_with @question
   end
 
   def new
-    @question = Question.new
-    @question.user_id = current_user.id
-    @question.attachments.build
+    respond_with(@question = Question.new)
   end
 
   def edit
@@ -29,26 +28,18 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(questions_params)
     @question.user_id = current_user.id
+    @question.save
 
-    if @question.save
-      flash[:notice] = 'Your question sucessfully created.'
-      redirect_to @question
-    else
-      render :new
-    end
+    respond_with @question
   end
 
   def update
-    if @question.update(questions_params)
-      redirect_to @question
-    else
-      render :edit
-    end
+    @question.update(questions_params)
+    respond_with @question
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path
+    respond_with(@question.destroy)
   end
 
   def publish_question
@@ -68,5 +59,10 @@ class QuestionsController < ApplicationController
 
   def questions_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:id, :file, :_destroy])
+  end
+
+  def build_answer
+    @answer = @question.answers.build
+    @comment = Comment.new
   end
 end

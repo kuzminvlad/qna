@@ -26,7 +26,7 @@ feature 'Add and delete files to question', %q{
   scenario 'User delete file from question', js: true do
     create(:question_attachment, attachmentable: question)
     visit edit_question_path(question)
-    
+
     click_on 'remove attach'
     click_on 'Update Question'
     expect(page).not_to have_link 'spec_helper.rb'
