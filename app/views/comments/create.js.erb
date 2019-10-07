@@ -1,0 +1,5 @@
+<% if @comment.commentable_type == 'Answer' %>
+  $('<%= ".comments_Answer ##{@comment.answer_id}" %>').append('<%= j render "comment", comment: @comment %>');
+<% else %>
+  $('.comments_Question').append('<%= j render "comment", comment: @comment %>');
+<% end %>

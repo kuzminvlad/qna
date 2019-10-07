@@ -1,29 +1,27 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_question, only: [:new, :create]
-  before_action :load_answer, only: [:destroy, :show, :update, :set_best]
+  before_action :load_answer, only: [:destroy, :update, :set_best]
+
+  after_action :publish_question, only: [:create]
 
   include Voted
-  
+
   def new
     @answer = @question.answers.new
-  end
-
-  def index
-  end
-
-  def show
   end
 
   def create
     @answer = @question.answers.new(answers_params)
     @answer.user_id = current_user.id
     @answer.save
+    @comment = Comment.new
   end
 
   def update
     @answer.update(answers_params)
     @question = @answer.question
+    @comment = Comment.new
   end
 
   def destroy
@@ -33,6 +31,12 @@ class AnswersController < ApplicationController
   def set_best
     @question = @answer.question
     @answer.set_best! if @question.user == current_user
+    @comment = Comment.new
+  end
+
+  def publish_question
+    return if @answer.errors.any?
+    ActionCable.server.broadcast('answers', locals: { answer: @answer.to_json })
   end
 
   private

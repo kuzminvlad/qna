@@ -1,0 +1,10 @@
+p = f.label :title
+p = f.text_field :title
+p = f.label :body, 'Your question'
+p = f.text_area :body
+p Attachments:
+p 
+  = f.fields_for :attachments do |a|
+    = render 'attachment_fields', f: a
+.links
+    = link_to_add_association 'add file', f, :attachments 

@@ -16,7 +16,7 @@ feature 'Add and delete files to question', %q{
   scenario 'User adds file when asks question', js: true  do
     visit new_question_path
     fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text'
+    fill_in 'Your question', with: 'text text'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'
 

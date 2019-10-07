@@ -1,7 +1,9 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   before_action :load_owner, only: [:destroy]
+
+  after_action :publish_question, only: [:create]
 
   include Voted
 
@@ -12,6 +14,7 @@ class QuestionsController < ApplicationController
   def show
     @answer = @question.answers.build
     @answer.attachments.build
+    @comment = Comment.new
   end
 
   def new
@@ -46,6 +49,11 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     redirect_to questions_path
+  end
+
+  def publish_question
+    return if @question.errors.any?
+    ActionCable.server.broadcast('questions', locals: { question: @question.to_json })
   end
 
   private

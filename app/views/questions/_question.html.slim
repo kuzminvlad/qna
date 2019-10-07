@@ -1,0 +1,11 @@
+tr
+  td
+    = link_to question, question_path(question)
+  td
+    = question.body
+  td
+    - if user_signed_in? && question.user_id == current_user.id
+      button
+        = link_to 'Edit', edit_question_path(question)
+      button
+        = link_to 'Delete', question_path(question), method: :delete

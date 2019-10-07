@@ -1,0 +1,6 @@
+- if current_user
+  = form_for [commentable, @comment], remote: true do |f|
+      = f.label :body, 'Your comment:'
+      .comment-errors
+      p = f.text_area :body
+      = f.submit 'Comment'
