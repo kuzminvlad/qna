@@ -5,6 +5,9 @@ class AnswersController < ApplicationController
 
   after_action :publish_question, only: [:create]
 
+  respond_to :js
+  respond_to :json, only: :create
+
   include Voted
 
   def new
@@ -15,11 +18,12 @@ class AnswersController < ApplicationController
     @answer = @question.answers.create(answers_params)
     @answer.user_id = current_user.id
     @answer.save
-    @comment = Comment.new
+    respond_with @answer
   end
 
   def update
     @answer.update(answers_params)
+    respond_with @answer
   end
 
   def destroy
@@ -45,7 +49,6 @@ class AnswersController < ApplicationController
   def load_answer
     @answer = Answer.find(params[:id])
     @question = @answer.question
-    @comment = Comment.new
   end
 
   def answers_params
