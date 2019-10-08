@@ -2,17 +2,17 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_commentable, only: [:create]
 
+  respond_to :js, :json
+
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
     @comment.answer_id = params[:answer_id] if @comment.commentable_type == 'Answer'
 
-    respond_to do |format|
-      if @comment.save
-        format.js
-      else
-        format.json { render json: { errors: @comment.errors.full_messages } }
-      end
+    if @comment.save
+      render nothing: true
+    else
+      render json: { errors: @comment.errors.full_messages }
     end
   end
 

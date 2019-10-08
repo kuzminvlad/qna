@@ -2,7 +2,7 @@
   h4 = f.label :body, 'Your answer'
   .answer-errors
   p = f.text_area :body
-  = f.fields_for :attachments do |a|
+  = f.fields_for :attachments, @answer.attachments.build do |a|
     == render 'attachment_fields', f: a
   .links
     p = link_to_add_association 'add file', f, :attachments 
