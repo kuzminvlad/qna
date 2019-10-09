@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   use_doorkeeper
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  resources :authorizations, only: [:new, :create]
 
   concern :votable do
     member  do
