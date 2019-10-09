@@ -6,7 +6,8 @@ module Voted
   end
 
   def vote_up
-    @votable.vote_up(current_user) unless @votable.user_id == current_user.id
+    authorize! :vote_up, @votable
+    @votable.vote_up(current_user)
 
     respond_to do |format|
       format.json { render json: { model: model_class.to_s, votable_id: @votable.id, score: @votable.total_score, voted: true } }
@@ -14,7 +15,8 @@ module Voted
   end
 
   def vote_down
-    @votable.vote_down(current_user) unless @votable.user_id == current_user.id
+    authorize! :vote_down, @votable
+    @votable.vote_down(current_user)
 
     respond_to do |format|
       format.json { render json: { model: model_class.to_s, votable_id: @votable.id, score: @votable.total_score, voted: true } }
@@ -22,6 +24,7 @@ module Voted
   end
 
   def delete_vote
+    authorize! :delete_vote, @votable
     @votable.delete_vote(current_user)
 
     respond_to do |format|

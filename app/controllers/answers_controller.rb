@@ -5,6 +5,8 @@ class AnswersController < ApplicationController
 
   after_action :publish_question, only: [:create]
 
+  authorize_resource
+
   respond_to :js
   respond_to :json, only: :create
 
@@ -28,7 +30,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:id])
-    @answer.destroy if @answer.user == current_user
+    @answer.destroy
   end
 
   def set_best

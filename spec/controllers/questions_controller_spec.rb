@@ -44,7 +44,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    sign_in_user
+    before { sign_in(user) }
     before { get :edit, params: {id: question} }
 
     it 'assigns the requested question to @question' do
@@ -88,7 +88,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    sign_in_user
+    before { sign_in(user) }
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
         patch :update, params: { id: question,

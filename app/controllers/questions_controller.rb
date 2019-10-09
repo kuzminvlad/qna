@@ -8,6 +8,8 @@ class QuestionsController < ApplicationController
 
   respond_to :html
 
+  authorize_resource
+
   include Voted
 
   def index
@@ -23,6 +25,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    respond_with @question 
   end
 
   def create

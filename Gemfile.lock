@@ -60,6 +60,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (11.0.1)
+    cancancan (3.0.1)
     capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -193,7 +194,6 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oauth (0.5.4)
     oauth2 (1.4.2)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -208,9 +208,6 @@ GEM
     omniauth-github (1.3.0)
       omniauth (~> 1.5)
       omniauth-oauth2 (>= 1.4.0, < 2.0)
-    omniauth-oauth (1.1.0)
-      oauth
-      omniauth (~> 1.0)
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
@@ -380,6 +377,7 @@ DEPENDENCIES
   active_model_serializers
   bootsnap (>= 1.1.0)
   byebug
+  cancancan
   capybara (~> 2.0)
   capybara-webkit
   carrierwave
