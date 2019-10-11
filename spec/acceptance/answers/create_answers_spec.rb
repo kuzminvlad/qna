@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'User answer', %q{
+feature 'User answer', '
   In order to exchange my knowledge
   As an authorized user
   I want to be able create answers
-} do
+' do
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
@@ -42,7 +42,7 @@ feature 'User answer', %q{
         visit question_path(question)
       end
 
-      Capybara.using_session('user') do 
+      Capybara.using_session('user') do
         fill_in 'Your answer', with: 'My answer'
         attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
         # click_on 'Create'

@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :load_question, only: %i[show edit update destroy]
   before_action :load_owner, only: [:destroy]
   before_action :build_answer, only: :show
 
@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    respond_with @question 
+    respond_with @question
   end
 
   def create
@@ -47,6 +47,7 @@ class QuestionsController < ApplicationController
 
   def publish_question
     return if @question.errors.any?
+
     ActionCable.server.broadcast('questions', locals: { question: @question.to_json })
   end
 
@@ -61,7 +62,7 @@ class QuestionsController < ApplicationController
   end
 
   def questions_params
-    params.require(:question).permit(:title, :body, attachments_attributes: [:id, :file, :_destroy])
+    params.require(:question).permit(:title, :body, attachments_attributes: %i[id file _destroy])
   end
 
   def build_answer

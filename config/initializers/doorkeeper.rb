@@ -15,7 +15,7 @@ Doorkeeper.configure do
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
   # every time somebody will try to access the admin web interface.
   #
-  admin_authenticator do |routes|
+  admin_authenticator do |_routes|
     current_user.try(:admin?) || redirect_to(new_user_session_path)
   end
 

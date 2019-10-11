@@ -10,7 +10,7 @@ RSpec.describe User do
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
     let(:auth) { OmniAuth::AuthHash.new(provider: 'github', uid: '123456') }
-    
+
     context 'user already has authorization' do
       it 'returns the user' do
         user.authorizations.create(provider: 'github', uid: '123456')
@@ -20,8 +20,10 @@ RSpec.describe User do
 
     context 'user has not authorization' do
       context 'user already exists' do
-        let(:auth) { OmniAuth::AuthHash.new(provider: 'github', uid: '123456', 
-                                                info: { email: user.email }) }
+        let(:auth) do
+          OmniAuth::AuthHash.new(provider: 'github', uid: '123456',
+                                 info: { email: user.email })
+        end
         it 'does not create new user' do
           expect { User.find_for_oauth(auth) }.to_not change(User, :count)
         end
@@ -43,13 +45,15 @@ RSpec.describe User do
       end
 
       context 'user does not exist' do
-        let(:auth) { OmniAuth::AuthHash.new(provider: 'github', uid: '123456', 
-                                                info: { email: 'new@user.com' }) } 
+        let(:auth) do
+          OmniAuth::AuthHash.new(provider: 'github', uid: '123456',
+                                 info: { email: 'new@user.com' })
+        end
 
         it 'creates new user' do
           expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
         end
-        
+
         it 'returns new user' do
           expect(User.find_for_oauth(auth)).to be_a(User)
         end

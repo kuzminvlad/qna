@@ -2,7 +2,7 @@ module Voted
   extend ActiveSupport::Concern
 
   included do
-    before_action :find_votable, only: [:vote_up, :vote_down, :delete_vote]
+    before_action :find_votable, only: %i[vote_up vote_down delete_vote]
   end
 
   def vote_up

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
-  resources :authorizations, only: [:new, :create]
+  resources :authorizations, only: %i[new create]
 
   concern :votable do
     member  do
@@ -33,8 +33,8 @@ Rails.application.routes.draw do
       resource :profiles do
         get :me, on: :collection
       end
-      resources :questions do
-        resources :answers, only: [:show, :index]
+      resources :questions, only: %i[show index create] do
+        resources :answers, only: %i[show index create]
       end
     end
   end

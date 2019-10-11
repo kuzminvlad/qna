@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Answers API' do
-
   let(:access_token) { create(:access_token) }
   let(:question) { create(:question) }
   let!(:answer) { create(:answer, question: question) }
@@ -38,7 +37,7 @@ describe 'Answers API' do
         expect(response.body).to have_json_size(1)
       end
 
-      %w(id body created_at updated_at user_id).each do |attr|
+      %w[id body created_at updated_at user_id].each do |attr|
         it "answer contains #{attr}" do
           expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json)
             .at_path("0/#{attr}")
@@ -73,9 +72,9 @@ describe 'Answers API' do
         expect(response.body).to have_json_size(8)
       end
 
-      %w(id body created_at updated_at user_id).each do |attr|
+      %w[id body created_at updated_at user_id].each do |attr|
         it "answer contains #{attr}" do
-          expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("#{attr}")
+          expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path(attr.to_s)
         end
       end
 
@@ -84,7 +83,7 @@ describe 'Answers API' do
           expect(response.body).to have_json_size(1).at_path("comments")
         end
 
-        %w(id body created_at updated_at user_id).each do |attr|
+        %w[id body created_at updated_at user_id].each do |attr|
           it "contains #{attr}" do
             expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("comments/0/#{attr}")
           end

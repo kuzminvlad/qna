@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Answer editing', %q{
+feature 'Answer editing', "
   In order to fix mistake
   As an author of answer
   I'd like to be able to edit my answer
-} do
+" do
   given(:user) { create(:user) }
   given(:user_another) { create(:user) }
   given!(:question) { create(:question) }

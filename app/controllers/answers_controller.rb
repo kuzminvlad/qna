@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:new, :create]
-  before_action :load_answer, only: [:update, :set_best]
+  before_action :load_question, only: %i[new create]
+  before_action :load_answer, only: %i[update set_best]
 
   after_action :publish_question, only: [:create]
 
@@ -39,6 +39,7 @@ class AnswersController < ApplicationController
 
   def publish_question
     return if @answer.errors.any?
+
     ActionCable.server.broadcast('answers', locals: { answer: @answer.to_json })
   end
 

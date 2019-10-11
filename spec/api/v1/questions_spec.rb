@@ -32,7 +32,7 @@ describe 'Questions API' do
         expect(response.body).to have_json_size(2)
       end
 
-      %w(id title body created_at updated_at).each do |attr|
+      %w[id title body created_at updated_at].each do |attr|
         it "question object contains #{attr}" do
           expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json)
             .at_path("0/#{attr}")
@@ -49,7 +49,7 @@ describe 'Questions API' do
           expect(response.body).to have_json_size(1).at_path("0/answers")
         end
 
-        %w(id body created_at updated_at).each do |attr|
+        %w[id body created_at updated_at].each do |attr|
           it "containss #{attr}" do
             expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json)
               .at_path("0/answers/0/#{attr}")
@@ -90,9 +90,9 @@ describe 'Questions API' do
         expect(response.body).to have_json_size(7)
       end
 
-      %w(id title body created_at updated_at).each do |attr|
+      %w[id title body created_at updated_at].each do |attr|
         it "question contains #{attr}" do
-          expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("#{attr}")
+          expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path(attr.to_s)
         end
       end
 
@@ -101,7 +101,7 @@ describe 'Questions API' do
           expect(response.body).to have_json_size(1).at_path("comments")
         end
 
-        %w(id body created_at updated_at user_id).each do |attr|
+        %w[id body created_at updated_at user_id].each do |attr|
           it "contains #{attr}" do
             expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("comments/0/#{attr}")
           end
