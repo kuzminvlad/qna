@@ -35,5 +35,7 @@ class Ability
     cannot :vote_down, [Question, Answer], user: user
     can :delete_vote, [Question, Answer]
     cannot :delete_vote, [Question, Answer], user: user
+
+    can :me, User, id: user.id
   end
 end
