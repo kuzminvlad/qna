@@ -33,7 +33,9 @@ Rails.application.routes.draw do
       resource :profiles do
         get :me, on: :collection
       end
-      resources :questions
+      resources :questions do
+        resources :answers, only: [:show, :index]
+      end
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
