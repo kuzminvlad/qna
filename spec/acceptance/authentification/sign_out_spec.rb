@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'User sign out', %q{
+feature 'User sign out', '
   In order to end session
   As an user
   I want to be able to sign out
-} do
+' do
   given(:user) { create(:user) }
 
   scenario 'Authenticated user sign out' do

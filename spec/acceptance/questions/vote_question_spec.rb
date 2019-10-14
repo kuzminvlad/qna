@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Votes for questions', %q{
+feature 'Votes for questions', '
   In order to give vote for question
   As an authorized user
-  I want to give vote for questions, except my questions 
-} do
+  I want to give vote for questions, except my questions
+' do
   given(:user) { create(:user) }
   given(:user_another) { create(:user) }
   given!(:question) { create(:question, user: user_another) }

@@ -1,10 +1,10 @@
 module Votable
   extend ActiveSupport::Concern
-  
+
   included do
     has_many :votes, as: :votable
   end
-  
+
   def vote_up(user)
     votes.create(user: user, value: 1) unless voted_by?(user)
   end

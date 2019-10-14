@@ -1,11 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Add file to answer', %q{
+feature 'Add file to answer', "
   In order to illustrate my answer
   As an answer's author
   I'd like to be able to attach files
-} do
-  
+" do
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 

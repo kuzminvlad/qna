@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Best answer', %q{
+feature 'Best answer', '
   In order to view best answer
   As an authorized user and owner of question
   I want to be able choose best answer
-} do
+' do
   given(:user) { create(:user) }
   given(:user_another) { create(:user) }
   given!(:question) { create(:question, user: user) }

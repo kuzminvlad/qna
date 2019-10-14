@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Votes for answers', %q{
+feature 'Votes for answers', '
   In order to give vote for answer
   As an authorized user
-  I want to give vote for answers, except my answers 
-} do
+  I want to give vote for answers, except my answers
+' do
   given(:user) { create(:user) }
   given(:user_another) { create(:user) }
   given!(:question) { create(:question) }
@@ -39,7 +39,6 @@ feature 'Votes for answers', %q{
       expect(page).to have_button('down', disabled: false)
       expect(page).to have_button('clean', disabled: true)
 
-
       click_on 'up'
       expect(page).to have_button 'clean'
       expect(page).to have_button('up', disabled: true)
@@ -55,6 +54,6 @@ feature 'Votes for answers', %q{
 
       click_on 'down'
       expect(page).to have_content 'Raiting:-1'
-    end    
+    end
   end
 end

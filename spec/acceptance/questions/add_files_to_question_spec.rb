@@ -1,11 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Add and delete files to question', %q{
+feature 'Add and delete files to question', "
   In order to illustrate my question
   As an question's author
   I'd like to be able to attach or delete files
-} do
-  
+" do
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
 
@@ -13,7 +12,7 @@ feature 'Add and delete files to question', %q{
     sign_in(user)
   end
 
-  scenario 'User adds file when asks question', js: true  do
+  scenario 'User adds file when asks question', js: true do
     visit new_question_path
     fill_in 'Title', with: 'Test question'
     fill_in 'Your question', with: 'text text'

@@ -5,7 +5,7 @@ RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question, user: user) }
 
   describe 'GET #index' do
-    let(:questions) { create_list(:question, 2)}
+    let(:questions) { create_list(:question, 2) }
 
     before { get :index }
 
@@ -19,7 +19,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #show' do
-    before { get :show, params: {id: question} }
+    before { get :show, params: { id: question } }
 
     it 'assigns the requested question to @question' do
       expect(assigns(:question)).to eq question
@@ -45,7 +45,7 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'GET #edit' do
     before { sign_in(user) }
-    before { get :edit, params: {id: question} }
+    before { get :edit, params: { id: question } }
 
     it 'assigns the requested question to @question' do
       expect(assigns(:question)).to eq question
@@ -60,10 +60,10 @@ RSpec.describe QuestionsController, type: :controller do
     sign_in_user
     context 'with valid attributes' do
       it 'saves the new question in the database' do
-        expect {
+        expect do
           post :create,
-          params: { question: attributes_for(:question) }
-        }.to change(Question, :count).by(1)
+               params: { question: attributes_for(:question) }
+        end.to change(Question, :count).by(1)
       end
 
       it 'redirects to show view' do
@@ -74,10 +74,10 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not save the question' do
-        expect {
+        expect do
           post :create,
-          params: { question: attributes_for(:invalid_question) }
-        }.to_not change(Question, :count)
+               params: { question: attributes_for(:invalid_question) }
+        end.to_not change(Question, :count)
       end
 
       it 're-renders new view' do
@@ -92,13 +92,13 @@ RSpec.describe QuestionsController, type: :controller do
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
         patch :update, params: { id: question,
-          question: attributes_for(:question) }
+                                 question: attributes_for(:question) }
         expect(assigns(:question)).to eq question
       end
 
-      it  'changes question attributes' do
+      it 'changes question attributes' do
         patch :update, params: { id: question,
-          question: { title: 'new title', body: 'new body' } }
+                                 question: { title: 'new title', body: 'new body' } }
         question.reload
         expect(question.title).to eq 'new title'
         expect(question.body).to eq 'new body'
@@ -106,7 +106,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'redirect to the updated question' do
         patch :update, params: { id: question,
-          question: attributes_for(:question) }
+                                 question: attributes_for(:question) }
         expect(response).to redirect_to question
       end
     end
@@ -114,7 +114,7 @@ RSpec.describe QuestionsController, type: :controller do
     context 'invalid attribute' do
       before do
         patch :update, params: { id: question,
-          question: { title: 'new title', body: nil } }
+                                 question: { title: 'new title', body: nil } }
       end
 
       it 'does not change question attributes' do
@@ -135,8 +135,10 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'deletes question' do
         question
-        expect { delete :destroy,
-          params: { id: question } }.to change(Question, :count).by(-1)
+        expect do
+          delete :destroy,
+                 params: { id: question }
+        end .to change(Question, :count).by(-1)
       end
 
       it 'redirect to index view' do
@@ -149,8 +151,10 @@ RSpec.describe QuestionsController, type: :controller do
       before { question }
 
       it 'tries to delete question' do
-        expect { delete :destroy,
-          params: { id: question } }.to change(Question, :count).by(0)
+        expect do
+          delete :destroy,
+                 params: { id: question }
+        end .to change(Question, :count).by(0)
       end
 
       it 'redirect to index' do

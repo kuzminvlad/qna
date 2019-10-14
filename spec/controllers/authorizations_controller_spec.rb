@@ -14,7 +14,7 @@ RSpec.describe AuthorizationsController, type: :controller do
     before do
       session['devise.oauth_data'] = { provider: 'github', uid: '123456' }
     end
-    
+
     context 'with valid data' do
       it 'assigns user to User' do
         post :create, params: { email: 'user@email.com' }

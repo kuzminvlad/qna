@@ -28,5 +28,4 @@ RSpec.describe Answer, type: :model do
       expect(answer2.best).to be false
     end
   end
-
 end

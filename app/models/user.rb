@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, 
+         :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:github]
 
   has_many :answers, dependent: :destroy
@@ -25,10 +25,10 @@ class User < ApplicationRecord
     if user
       user.create_authorization(auth)
     else
-      password = Devise.friendly_token[0,20]
+      password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password, password_confirmation: password)
       user.create_authorization(auth)
-    end  
+    end
     user
   end
 

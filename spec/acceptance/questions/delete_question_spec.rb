@@ -1,10 +1,10 @@
 require_relative '../acceptance_helper'
 
-feature 'Delete question', %q{
+feature 'Delete question', '
   In order to delete question
   As an authenticated user and owner of this question
   I want to be able to delete question
-} do
+' do
   given(:user) { create(:user) }
   given(:user_another) { create(:user) }
   given(:question) { create(:question, user: user) }

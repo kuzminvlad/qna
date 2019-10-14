@@ -7,21 +7,21 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
   describe 'GET #github' do
     context 'user dont exist yet' do
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'github', uid: '123456', info: { email: 'user@email.com' } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: 'user@email.com' })
         get :github
       end
 
       it 'assigns user to @user' do
         expect(assigns(:user)).to be_a(User)
       end
-      
+
       it { should be_user_signed_in }
     end
 
     context 'found user without authorization' do
       before do
         user
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'github', uid: '123456', info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: user.email })
         get :github
       end
 
@@ -36,7 +36,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
       let(:auth) { create(:authorization, user: user) }
 
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: auth.provider, uid: auth.uid, info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: auth.provider, uid: auth.uid, info: { email: user.email })
         get :github
       end
 
