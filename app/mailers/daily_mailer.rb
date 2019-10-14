@@ -4,9 +4,10 @@ class DailyMailer < ApplicationMailer
   #
   #   en.daily_mailer.digest.subject
   #
-  def digest(user)
-    @greeting = "Hi"
+  def digest(user, questions)
+    @user = user
+    @questions = questions
 
-    mail to: user.email
+    mail to: @user.email
   end
 end

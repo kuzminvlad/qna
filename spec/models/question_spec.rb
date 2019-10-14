@@ -12,6 +12,7 @@ RSpec.describe Question, type: :model do
   it { should accept_nested_attributes_for(:attachments).allow_destroy(true) }
   it { should have_many(:votes) }
   it { should have_many(:comments).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   describe 'reputation' do
     let(:user) { create(:user) }

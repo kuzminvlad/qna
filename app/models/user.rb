@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   def self.find_for_oauth(auth)
     authorization = Authorization.find_by(provider: auth.provider, uid: auth.uid.to_s)
@@ -29,8 +30,12 @@ class User < ApplicationRecord
   end
 
   def self.send_daily_digest
-    find_each.each do |user|
-      DailyMailer.digest(user).deliver_later
+    questions = Question.take(2) # where(created_at: Time.now.yesterday.all_day)
+
+    if questions.present?
+      find_each.each do |user|
+        DailyMailer.digest(user, questions).deliver_later
+      end
     end
   end
 

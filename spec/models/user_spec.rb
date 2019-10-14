@@ -6,6 +6,7 @@ RSpec.describe User do
   it { should have_many(:questions).dependent(:destroy) }
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:votes) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
@@ -79,12 +80,13 @@ RSpec.describe User do
   end
 
   describe '.send_daily_digest' do
-    let(:users) { create_list(:user, 2) }
+    let!(:users) { create_list(:user, 2) }
+    let!(:questions) { create_list(:question, 2, user: users.first) }
 
     it 'should send daily digest to all users' do
       users.each do |user|
         expect(DailyMailer).to receive(:digest)
-          .with(user).and_call_original
+          .with(user, questions).and_call_original
       end
       User.send_daily_digest
     end
