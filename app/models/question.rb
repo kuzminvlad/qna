@@ -20,11 +20,6 @@ class Question < ApplicationRecord
   private
 
   def update_reputation
-    self.delay.calculate_reputation
-  end
-
-  def calculate_reputation
-    reputation = Reputation.calculate(self)
-    self.user.update(reputation: reputation)
+    CalculateReputationJob.perform_later(self)
   end
 end

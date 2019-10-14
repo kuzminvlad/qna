@@ -12,7 +12,7 @@ class Answer < ApplicationRecord
 
   default_scope { order(best: :desc) }
 
-  after_create :calculate_rating
+  after_create :update_reputation
 
   def set_best!
     old_best_answer = question.answers.find_by(best: true)
@@ -22,7 +22,9 @@ class Answer < ApplicationRecord
     update!(best: true)
   end
 
-  def calculate_rating
-    Reputation.delay.calculate(self)
+  private
+
+  def update_reputation
+    CalculateReputationJob.perform_later(self)
   end
 end
