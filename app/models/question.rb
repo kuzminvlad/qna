@@ -11,13 +11,17 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |a| a[:file].blank? }, allow_destroy: true
 
-  after_create :calculate_reputation
+  after_create :update_reputation
 
   def to_s
     self[:title]
   end
 
   private
+
+  def update_reputation
+    self.delay.calculate_reputation
+  end
 
   def calculate_reputation
     reputation = Reputation.calculate(self)

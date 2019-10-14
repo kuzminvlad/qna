@@ -26,10 +26,12 @@ gem 'doorkeeper', '4.2.6'
 gem 'cancancan'
 gem 'carrierwave'
 gem 'cocoon'
+gem 'delayed_job_active_record'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'responders'
 gem 'slim-rails'
+gem 'whenever'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

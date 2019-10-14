@@ -1,3 +1,5 @@
 class Reputation
-  def self.calculate(object); end
+  def self.calculate(object)
+    # sleep(3)
+  end
 end
