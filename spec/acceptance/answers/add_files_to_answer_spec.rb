@@ -15,7 +15,7 @@ feature 'Add file to answer', "
 
   scenario 'User adds file when asks question', js: true do
     fill_in 'Your answer', with: 'My answer'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    attach_file 'File', Rails.root.join('spec', 'spec_helper.rb')
     click_on 'Create'
 
     within '.answers' do

@@ -34,7 +34,10 @@ RSpec.describe CommentsController, type: :controller do
 
     context 'with invalid information' do
       it 'does not save the answer' do
-        expect { post :create, params: { commentable: 'questions', question_id: question, comment: attributes_for(:invalid_comment), format: :json } }
+        expect do
+          post :create,
+               params: { commentable: 'questions', question_id: question, comment: attributes_for(:invalid_comment), format: :json }
+        end
           .to_not change(Comment, :count)
       end
     end

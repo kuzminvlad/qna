@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'Questions API' do
   describe 'GET /index' do
-
     it_behaves_like 'API Authenticable'
 
     context 'authorized' do
@@ -55,7 +54,6 @@ describe 'Questions API' do
   end
 
   describe 'GET /show' do
-    
     it_behaves_like 'API Authenticable'
 
     context 'authorized' do

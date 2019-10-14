@@ -8,7 +8,6 @@ describe 'Answers API' do
   let!(:attachment) { create(:attachment, attachmentable: answer) }
 
   describe 'GET /index' do
-
     it_behaves_like 'API Authenticable'
 
     context 'authorized' do
@@ -42,7 +41,6 @@ describe 'Answers API' do
   end
 
   describe 'GET /show' do
-    
     it_behaves_like 'API Authenticable'
 
     context 'authorized' do

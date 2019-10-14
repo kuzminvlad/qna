@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-
   it { should belong_to :user }
 
   it { should validate_presence_of :title }
@@ -31,7 +30,7 @@ RSpec.describe Question, type: :model do
 
     it 'should save user reputation' do
       allow(Reputation).to receive(:calculate).and_return(5)
-      expect{ subject.save! }.to change(user, :reputation).by(5)
+      expect { subject.save! }.to change(user, :reputation).by(5)
     end
 
     describe 'different type of tests' do
@@ -45,7 +44,7 @@ RSpec.describe Question, type: :model do
         now = Time.now.utc
         allow(Time).to receive(:now) { now }
         subject.save!
-        expect(subject.created_at).to eq Time.now
+        expect(subject.created_at).to eq Time.now.utc
       end
     end
   end

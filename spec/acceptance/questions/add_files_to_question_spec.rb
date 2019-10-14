@@ -16,7 +16,7 @@ feature 'Add and delete files to question', "
     visit new_question_path
     fill_in 'Title', with: 'Test question'
     fill_in 'Your question', with: 'text text'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    attach_file 'File', Rails.root.join('spec', 'spec_helper.rb')
     click_on 'Create'
 
     expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'

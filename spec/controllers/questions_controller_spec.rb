@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
+  let(:user_another) { create(:user) }
   let(:question) { create(:question, user: user) }
+  let(:question_another) { create(:question, user: user_another) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
@@ -162,5 +164,11 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to new_user_session_path
       end
     end
+  end
+
+  it_behaves_like "voted" do
+    before { sign_in(user) }
+    let(:votable) { question_another }
+    let(:own_votable) { question }
   end
 end

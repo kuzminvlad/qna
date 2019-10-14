@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Profile API' do
-    
   it_behaves_like 'API Authenticable'
 
   context 'autorized' do
