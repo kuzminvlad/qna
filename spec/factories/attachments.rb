@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :attachment do
-    file { Rack::Test::UploadedFile.new("#{Rails.root}/spec/spec_helper.rb") }
+    file { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'spec_helper.rb')) }
     factory :question_attachment do
       association :attachmentable, factory: :question
     end

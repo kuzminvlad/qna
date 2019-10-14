@@ -13,7 +13,7 @@ class Answer < ApplicationRecord
   default_scope { order(best: :desc) }
 
   def set_best!
-    old_best_answer = question.answers.where(best: true).first
+    old_best_answer = question.answers.find_by(best: true)
     return if old_best_answer == self
 
     old_best_answer&.update!(best: false)

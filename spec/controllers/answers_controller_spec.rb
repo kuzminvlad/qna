@@ -5,6 +5,7 @@ RSpec.describe AnswersController, type: :controller do
   let(:user_another) { create(:user) }
   let!(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
+  let(:answer_another) { create(:answer, question: question, user: user_another) }
 
   describe 'GET #new' do
     before do
@@ -146,5 +147,11 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.best).to eq false
       end
     end
+  end
+
+  it_behaves_like "voted" do
+    before { sign_in(user) }
+    let(:votable) { answer_another }
+    let(:own_votable) { answer }
   end
 end

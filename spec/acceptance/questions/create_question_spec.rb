@@ -13,7 +13,7 @@ feature 'Create question', '
     click_on 'Ask Question'
     fill_in 'Title', with: 'Test question'
     fill_in 'Your question', with: 'text text'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    attach_file 'File', Rails.root.join('spec', 'spec_helper.rb')
     click_on 'Create'
 
     expect(page).to have_content 'Your question sucessfully created.'
@@ -42,7 +42,7 @@ feature 'Create question', '
         click_on 'Ask Question'
         fill_in 'Title', with: 'Test question'
         fill_in 'Your question', with: 'text text'
-        attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+        attach_file 'File', Rails.root.join('spec', 'spec_helper.rb')
         click_on 'Create'
         expect(page).to have_content 'Your question sucessfully created.'
         # expect(page).to have_content 'Test question'

@@ -8,17 +8,7 @@ describe 'Answers API' do
   let!(:attachment) { create(:attachment, attachmentable: answer) }
 
   describe 'GET /index' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        get "/api/v1/questions/#{question.id}/answers", params: { format: :json }
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers", params: { format: :json, access_token: '123456' }
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
@@ -44,20 +34,14 @@ describe 'Answers API' do
         end
       end
     end
+
+    def do_request(options = {})
+      get "/api/v1/questions/#{question.id}/answers", params: { format: :json }.merge(options)
+    end
   end
 
   describe 'GET /show' do
-    context 'unauthorized' do
-      it 'returns 401 if there is no access_token' do
-        get "/api/v1/questions/#{question.id}/answers/#{answer.id}", params: { format: :json }
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers/#{answer.id}", params: { format: :json, access_token: '123456' }
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       before do
@@ -99,6 +83,10 @@ describe 'Answers API' do
           expect(response.body).to be_json_eql(attachment.file.url.to_json).at_path("attachments/0/url")
         end
       end
+    end
+
+    def do_request(options = {})
+      get "/api/v1/questions/#{question.id}/answers/#{answer.id}", params: { format: :json }.merge(options)
     end
   end
 end
