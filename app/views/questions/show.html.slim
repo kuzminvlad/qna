@@ -1,6 +1,8 @@
 h2 = @question.title
 p = @question.body
 == render 'vote', question: @question, voted: @question.voted_by?(current_user)
+- if current_user
+  == render 'subscription', question: @question
 h3 Attachments:
 ul
   - @question.attachments.each do |a|
