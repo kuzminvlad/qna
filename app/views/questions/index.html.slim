@@ -1,3 +1,8 @@
+= form_with(url: '/search', method: 'get', class: 'search') do |f|
+  p = f.text_area :content, type: 'search', placeholder: 'Search'
+  = f.select :context, options_for_select(Search::FILTER, params[:context])
+  = f.submit 'Search'
+
 - if can?(:create, Question)
   p = link_to 'Ask Question', new_question_path
 

@@ -32,3 +32,6 @@
 /.rubocop_todo.yml
 
 /dump.rdb
+
+/db/sphinx
+/config/*.sphinx.conf
