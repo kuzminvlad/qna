@@ -28,4 +28,12 @@ RSpec.describe Answer, type: :model do
       expect(answer2.best).to be false
     end
   end
+
+  describe 'reputation' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+    subject { build(:answer, user: user, question: question) }
+
+    it_behaves_like 'calculates reputation'
+  end
 end

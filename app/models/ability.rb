@@ -37,5 +37,7 @@ class Ability
     cannot :delete_vote, [Question, Answer], user: user
 
     can :me, User, id: user.id
+    can :create, Subscription, user: user
+    can :destroy, Subscription, user: user
   end
 end

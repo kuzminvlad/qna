@@ -1,0 +1,6 @@
+h2 Hello,
+  = @user.email
+
+h2 Questions list for the last day:
+- @questions.each do |question|
+  = link_to question.title, questions_url(question)
