@@ -56,5 +56,7 @@ describe Ability do
 
     it { should be_able_to :me, user }
     it { should_not be_able_to :me, other }
+    it { should be_able_to :create, Subscription }
+    it { should be_able_to :destroy, Subscription }
   end
 end

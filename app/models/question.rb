@@ -12,7 +12,7 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :attachments, reject_if: proc { |a| a[:file].blank? }, allow_destroy: true
 
-  after_create :update_reputation
+  after_create :update_reputation, :autosubscribe_for_own
 
   def to_s
     self[:title]
@@ -22,5 +22,9 @@ class Question < ApplicationRecord
 
   def update_reputation
     CalculateReputationJob.perform_later(self)
+  end
+
+  def autosubscribe_for_own
+    user.subscribe!(id)
   end
 end

@@ -32,6 +32,9 @@ Rails.application.routes.draw do
         patch 'set_best'
       end
     end
+    resources :subscriptions, only: :create do
+      delete :destroy, on: :collection
+    end
   end
 
   namespace :api do

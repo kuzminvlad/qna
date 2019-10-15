@@ -30,3 +30,5 @@
 /config/database.yml
 
 /.rubocop_todo.yml
+
+/dump.rdb
