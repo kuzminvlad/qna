@@ -14,6 +14,8 @@ class Answer < ApplicationRecord
 
   after_create :update_reputation
 
+  after_commit :notify_users
+
   def set_best!
     old_best_answer = question.answers.find_by(best: true)
     return if old_best_answer == self
@@ -26,5 +28,12 @@ class Answer < ApplicationRecord
 
   def update_reputation
     CalculateReputationJob.perform_later(self)
+  end
+
+  def notify_users
+    users = question.users
+    users.each do |user|
+      NotifyMailer.added_answer(user, self).deliver_later
+    end
   end
 end

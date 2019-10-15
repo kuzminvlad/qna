@@ -30,10 +30,10 @@ class User < ApplicationRecord
   end
 
   def self.send_daily_digest
-    questions = Question.take(2) # where(created_at: Time.now.yesterday.all_day)
+    questions = Question.where(created_at: Time.zone.now.yesterday.all_day).to_a
 
-    return unless questions.present?
-    
+    return if questions.blank?
+
     find_each.each do |user|
       DailyMailer.digest(user, questions).deliver_later
     end

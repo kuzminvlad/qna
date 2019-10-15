@@ -81,7 +81,7 @@ RSpec.describe User do
 
   describe '.send_daily_digest' do
     let!(:users) { create_list(:user, 2) }
-    let!(:questions) { create_list(:question, 2, user: users.first) }
+    let!(:questions) { create_list(:question, 2, user: users.first, created_at: (Time.zone.now - 1.day)) }
 
     it 'should send daily digest to all users' do
       users.each do |user|
