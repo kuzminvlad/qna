@@ -27,6 +27,7 @@ gem 'cancancan'
 gem 'carrierwave'
 gem 'cocoon'
 # gem 'delayed_job_active_record'
+gem 'mysql2'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'responders'
@@ -34,7 +35,8 @@ gem 'sidekiq'
 gem 'sidetiq'
 gem 'sinatra', '>=1.3.0', require: nil
 gem 'slim-rails'
-# gem 'whenever'
+gem 'thinking-sphinx'
+gem 'whenever'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
