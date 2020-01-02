@@ -23,10 +23,11 @@ gem 'oj_mimic_json'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'doorkeeper', '4.2.6'
 
+gem 'bootstrap3-rails'
 gem 'cancancan'
 gem 'carrierwave'
 gem 'cocoon'
-# gem 'delayed_job_active_record'
+gem 'jquery-datatables'
 gem 'mysql2'
 gem 'omniauth'
 gem 'omniauth-github'

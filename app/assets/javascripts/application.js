@@ -14,9 +14,11 @@
 //= require jquery-ui
 //= require rails-ujs
 //= require cocoon
+//= require bootstrap
 //= require action_cable
 //= require activestorage
 //= require turbolinks
+//= require datatables
 //= require_tree .
 
 var App = App || {};

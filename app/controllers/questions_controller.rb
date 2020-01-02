@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
   private
 
   def load_question
-    @question = Question.find(params[:id])
+    @question = Question.find_by(id: params[:id])
   end
 
   def load_owner
