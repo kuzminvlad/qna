@@ -1,5 +1,4 @@
 ready = ->
-
   App.cable.subscriptions.create('QuestionsChannel', {
     connected: ->
       @perform 'follow', text: 'question'

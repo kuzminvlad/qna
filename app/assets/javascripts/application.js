@@ -20,6 +20,3 @@
 //= require turbolinks
 //= require datatables
 //= require_tree .
-
-var App = App || {};
-App.cable = ActionCable.createConsumer();

@@ -1,24 +1,27 @@
 = form_with(url: '/search', method: 'get', class: 'search') do |f|
-  p = f.text_area :content, type: 'search', placeholder: 'Search'
-  = f.select :context, options_for_select(Search::FILTER, params[:context])
-  = f.submit 'Search'
+  = f.text_area :content, type: 'search', placeholder: 'Search'
+  div class='search-select'
+    = f.select :context, options_for_select(Search::FILTER, params[:context])
+    = f.submit 'Search', class: 'btn btn-sm btn-primary search-button'
 
 - if can?(:create, Question)
-  p = link_to 'Ask Question', new_question_path
+  = link_to 'Ask Question', new_question_path, class: "btn btn-success"
 
 - unless user_signed_in?
-  p = link_to 'Login', new_user_session_path
-  p = link_to 'Register', new_user_registration_path
+  div class="btn-group"
+    = link_to 'Login', new_user_session_path, class: "btn btn-primary"
+    = link_to 'Register', new_user_registration_path, class: "btn btn-warning"
 
-p List of all questions:
+label class="label-list-questions" List of all questions:
 
-table
-  head
+table class='datatable'
+  thead
     tr
       th
         | Title
       th
         | Question
-  body
+      th
+  tbody
     - @questions.each do |question|
       == render "question", question: question

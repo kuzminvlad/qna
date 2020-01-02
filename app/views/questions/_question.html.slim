@@ -5,7 +5,5 @@ tr
     = question.body
   td
     - if can?(:edit, Question) && question.user_id == current_user.id
-      button
-        = link_to 'Edit', edit_question_path(question)
-      button
-        = link_to 'Delete', question_path(question), method: :delete
+        = link_to 'Edit', edit_question_path(question), class: 'btn btn-sm btn-warning'
+        = link_to 'Delete', question_path(question), method: :delete, class: 'btn btn-sm btn-danger'
