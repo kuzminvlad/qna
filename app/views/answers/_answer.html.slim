@@ -1,4 +1,4 @@
-div id="answer-#{ answer.id }"
+div id="answer-#{ answer.id }" style='margin-top: 20px'
   -if answer.best
     h4 = 'Best answer: '
   p = answer.body
@@ -14,9 +14,10 @@ div id="answer-#{ answer.id }"
       == render 'comments/form', commentable: answer
 
   - if user_signed_in? && answer.user_id == current_user.id
-    p = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true
-    p = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-    p = link_to 'Delete', answer_path(answer), method: :delete, remote: true
+    div class="btn-group"
+      = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true, class: 'btn btn-sm btn-primary'
+      = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }, class: 'btn btn-sm btn-warning'
+      = link_to 'Delete', answer_path(answer), method: :delete, remote: true, class: 'btn btn-sm btn-danger'
     
     = form_for answer, remote: true, html: { id: "edit-answer-#{ answer.id }" } do |f|
       = f.label :body, 'Edit answer'
